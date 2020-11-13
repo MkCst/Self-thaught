@@ -1,9 +1,5 @@
 # Algoritmos de ordenamiento
 
-
-# Algoritmos de ordenamiento
-
-
 ## Bubble sort
     # Algoritmo de ordenamiento Burbuja
     
