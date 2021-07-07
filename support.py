@@ -46,7 +46,7 @@ def formato_aritmetico(problemas, display=False):
     arranged_problems = arranged_problems.rstrip()
     arranged_problems += "\n"
 
-    #print(arranged_problems)
+    # print(arranged_problems)
     # Segunda linea
     for i in range(len(lst)):
         arranged_problems += lst[i][1]
@@ -55,35 +55,37 @@ def formato_aritmetico(problemas, display=False):
             arranged_problems += " "
         arranged_problems += str(lst[i][2]) + "    "
 
-    arranged_problems = arranged_problems.rstrip() 
+    arranged_problems = arranged_problems.rstrip()
     arranged_problems += "\n"
     #print (arranged_problems)
-    
+
     # Linea separadora
     for i in range(len(lst)):
         for _ in range(required_length[i]):
             arranged_problems += "-"
         arranged_problems += "    "
     arranged_problems = arranged_problems.rstrip()
-    
+
     # Devolver solo las operaciones
     if (not display):
         return arranged_problems
-    
+
     # Desplegar resultado si se requiere
     arranged_problems += "\n"
     for i in range(len(lst)):
         if lst[i][1] == "+":
-            temp_result = lst[i][0] + lst[i][2] 
+            temp_result = lst[i][0] + lst[i][2]
         else:
-            temp_result = lst[i][0] - lst[i][2] 
+            temp_result = lst[i][0] - lst[i][2]
         space_required = required_length[i] - len(str(temp_result))
         for _ in range(space_required):
-            arranged_problems +=" "
+            arranged_problems += " "
         arranged_problems += str(temp_result) + "    "
     arranged_problems = arranged_problems.rstrip()
     return arranged_problems
+
+
 problemas = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
-var=formato_aritmetico(problemas,display=True)
+var = formato_aritmetico(problemas, display=True)
 print(problemas)
 print(var)
