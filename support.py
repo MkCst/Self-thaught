@@ -7,7 +7,7 @@ def formato_aritmetico(problemas, display=False):
     # Construccion lista de operaciones
     for i in range(len(problemas)):
         lst.append(problemas[i].split(" "))
-    #print(lst)
+    # print(lst)
 
     # Condiciones
     if len(lst) > 5:
@@ -42,15 +42,48 @@ def formato_aritmetico(problemas, display=False):
         space_required = required_length[i] - len(str(lst[i][0]))
         for _ in range(space_required):
             arranged_problems += " "
-        arranged_problems += str(lst[i][0]) + "  "
+        arranged_problems += str(lst[i][0]) + "    "
     arranged_problems = arranged_problems.rstrip()
     arranged_problems += "\n"
 
     #print(arranged_problems)
     # Segunda linea
-    for i in range(len())
-    
+    for i in range(len(lst)):
+        arranged_problems += lst[i][1]
+        space_required = required_length[i] - len(str(lst[i][2])) - 1
+        for _ in range(space_required):
+            arranged_problems += " "
+        arranged_problems += str(lst[i][2]) + "    "
 
+    arranged_problems = arranged_problems.rstrip() 
+    arranged_problems += "\n"
+    #print (arranged_problems)
     
+    # Linea separadora
+    for i in range(len(lst)):
+        for _ in range(required_length[i]):
+            arranged_problems += "-"
+        arranged_problems += "    "
+    arranged_problems = arranged_problems.rstrip()
+    
+    # Devolver solo las operaciones
+    if (not display):
+        return arranged_problems
+    
+    # Desplegar resultado si se requiere
+    arranged_problems += "\n"
+    for i in range(len(lst)):
+        if lst[i][1] == "+":
+            temp_result = lst[i][0] + lst[i][2] 
+        else:
+            temp_result = lst[i][0] - lst[i][2] 
+        space_required = required_length[i] - len(str(temp_result))
+        for _ in range(space_required):
+            arranged_problems +=" "
+        arranged_problems += str(temp_result) + "    "
+    arranged_problems = arranged_problems.rstrip()
+    return arranged_problems
 problemas = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
-formato_aritmetico(problemas)
+var=formato_aritmetico(problemas,display=True)
+print(problemas)
+print(var)
