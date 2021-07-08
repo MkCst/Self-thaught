@@ -61,7 +61,6 @@ def formato_aritmetico(problemas, display=False):
     return cadena
 
 
-
 problemas = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
 var = formato_aritmetico(problemas, True)
 print(problemas)
