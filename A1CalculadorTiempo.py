@@ -1,90 +1,55 @@
-def change_bool_am (bool_am, start_splitted, days_later):
-    if(bool_am):
-        return (False, "PM", 0)
-    else:
-        return (True, "AM", 1)
-
-def add_time(start, duration, days_of_the_week = ""):
-    """Funcion solo de referencia, caracteristas a mejorar."""
-    start_splitted = []
-    start_splitted.append(int(start.split(":")[0]))
-    start_splitted.append(int(start.split(":")[1].split(" ")[0]))
-    start_splitted.append(start.split(":")[1].split(" ")[1].upper())
-
-    duration_hour = int(duration.split(":")[0])
-    duration_minute = int(duration.split(":")[1])
-
-    bool_am = False
-    if start_splitted[2] == "AM":
-        bool_am = True
-    else:
-        bool_am = False
-
-    days_later = 0
-
-    #Adding hours
-    quotient, remainder = divmod(duration_hour, 24)
-    days_later += quotient
-    if((start_splitted[0] + remainder) < 12):
-        start_splitted[0] += remainder
-    else:
-        if((start_splitted[0] + remainder) == 12):
-            start_splitted[0] = 12
-            bool_am, start_splitted[2], temp = change_bool_am(bool_am, start_splitted, days_later)
-            days_later += temp
-        else:
-            start_splitted[0] = (start_splitted[0] + remainder) % 12
-            bool_am, start_splitted[2], temp = change_bool_am(bool_am, start_splitted, days_later)
-            days_later += temp
-
-    #Adding minutes
-    if((start_splitted[1] + duration_minute) < 60):
-        start_splitted[1] += duration_minute
-    # Turn of the Hour
-    else:
-        start_splitted[1] = (start_splitted[1] + duration_minute) % 60
-        # Basic Increment
-        if(start_splitted[0] < 11):
-            start_splitted[0] += 1
-        # Critical Points
-        else:
-        # AM to PM or PM to AM
-            if(start_splitted[0] == 11):
-                start_splitted[0] += 1
-                bool_am, start_splitted[2], temp = change_bool_am(bool_am, start_splitted, days_later)
-                days_later += temp 
-            # 12:59 to 1:00
-            else:
-                start_splitted[0] = 1
-
-    #Writing Results
-    new_time = str(start_splitted[0]) + ":" 
+def add_time(start, duration, day_of_week=False):
+    day_of_week_index = {
+        "monday": 0,
+        "tuesday": 1,
+        "wednesday": 2,
+        "thursday": 3,
+        "friday": 4,
+        "saturday": 5,
+        "sunday": 6,
+    }
+    day_of_week_array = [
+        "Monday", "Tuesday",
+        "Wednesday", "Thursday",
+        "Friday", "Saturday", "Sunday"]
     
-    if(start_splitted[1] < 10):
-        new_time += "0" + str(start_splitted[1])
-    else:
-        new_time += str(start_splitted[1])
+    # DURACION
+    # Definicion
+    duration_tuple = duration.partition(":")
+    print("Tupla duracion:\t", duration_tuple)
+    # asignacion
+    duration_hours = int(duration_tuple[0])
+    duration_minutes = int(duration_tuple[2])
 
-    new_time += " " + start_splitted[2]
+    # TIEMPO INICIAL
+    # definicion
+    start_tuple = start.partition(":")
+    start_2do_arg = start_tuple[2].partition(" ")
+    print("Tiempo inicial:\t", start_tuple)
+    # asignacion
+    start_hours = int(start_tuple[0])
+    start_minutes = int(start_2do_arg[0])
 
-    #Calculating the final day of the week
-    week = {"sunday": 0, "monday": 1, "tuesday": 2, "wednesday": 3, "thursday": 4, "friday": 5, "saturday": 6}
-    if(days_of_the_week != ""):
-        value_day = week[days_of_the_week.lower()]
-        value_day = (value_day + days_later) % 7
-        
-        key_list = list(week.keys())
-        day_week = key_list[value_day]
+    # PERIODO DEL DIA
+    period_day = start_2do_arg[2]
+    period_dayDict = {"AM": "PM", "PM": "AM"}
 
-        new_time += ", " + str(day_week.capitalize()) 
-        
+    # CANTIDAD DE DIAS TRANSCURRIDOS
+    amount_days = duration_hours // 24
+    print("Dias transcurridos: ", amount_days)
 
-    if(days_later == 1):
-        new_time += " (next day)"
-    elif(days_later > 1):
-        new_time += " (" + str(days_later) + " days later)"
+    # Minutos establecidos
+    minutes_assigned = start_minutes + duration_minutes
+    # Asignando horas
+    if(minutes_assigned >= 60):
+        start_hours += 1
+        minutes_assigned = minutes_assigned % 60
+    iteration_ampmCount = (start_hours + duration_hours) // 12
+    
+    hours_assignated = (start_hours + duration_hours) % 12
+    print("Horas asignadas",hours_assignated)
+    print("Minutos asignados", minutes_assigned)
 
-    return new_time
 
 # Simulacion de main
-print(add_time("11:06 PM", "2:02", "Monday"))
+print(add_time("1:00 AM", "10:59", "Monday"))
