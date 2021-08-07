@@ -25,6 +25,7 @@ class Category:
             line = i["description"][0:23]
             for _ in range(len(line), 23):
                 line += " "
+
             amt = str("{:.2f}".format(i["amount"]))
             for _ in range(0, 7%len(amt)):
                 line += " "
@@ -62,4 +63,64 @@ class Category:
             return True
         else:
             return False
+    
+    # Metodo checar fondos
+    def check_funds(self, amount):
+        if amount<=self.get_balance():
+            return True
+        else:
+            return False
+    
+# Metodo creacion de gafico de gastos
+def create_spend_chart(categories):
+    total_spend = 0
+    for i in categories:
+        total_spend += i.spent
+    for i in categories:
+        i.percentage_spent = int(i.spent*100 / total_spend)
+    output = "Percentage spent by category\n"
+    for i in range(100, -1, -10):
+        output += str(i).rjust(3)+"| "
+        for j in categories:
+            if j.percentage_spent>=i:
+                output += "o  "
+            else:
+                output += "   "
+        output +="\n"
+
+    output +="    -"
+    for i in range(0, len(categories)):
+        output += "---"
+    output += "\n"
+
+    # creacion de lista maximo tamaño de categorias
+    max_len_categories = max([len(i.categories) for i in categories])
+    
+    for i in range(0, max_len_categories):
+        output +="     "
+        for j in categories:
+            if i < len(j.categories):
+                output += j.categories[i] + "  "
+            else:
+                output += "   "
+        if i != max_len_categories - 1:
+            output += "\n"
+    return output
             
+if __name__ == '__main__':    
+    food = Category("Food")
+    food.deposit(1000, "initial deposit")
+    food.withdraw(10.15, "groceries")
+    food.withdraw(15.89, "restaurant and more food for dessert")
+    print(food.get_balance())
+    clothing = Category("Clothing")
+    food.transfer(50, clothing)
+    clothing.withdraw(25.55)
+    clothing.withdraw(100)
+    auto = Category("Auto")
+    auto.deposit(1000, "initial deposit")
+    auto.withdraw(15)
+    print(food)
+    print(clothing)
+
+    print(create_spend_chart([food, clothing, auto]))
