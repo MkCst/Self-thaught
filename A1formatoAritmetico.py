@@ -1,7 +1,5 @@
 import re
 # Segunda solucion usando expresiones regulares
-
-
 def formato_aritmetico(problemas, display=False):
     if len(problemas) > 5:
         return "Error: Too many problems."
