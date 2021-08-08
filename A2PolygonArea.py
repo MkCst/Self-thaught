@@ -35,19 +35,13 @@ class Rectangle:
             output = "Too big for picture."
             return output
         else:
-            for _ in range(0, self.height):
-                for _ in range(0, self.width):
-                    output += "*"
-                output += "\n"
+            output = (("*" * self.width)+"\n") * self.height
         return output
 
     def get_amount_inside(self, shape):
-        x = int(self.width / shape.width)
-        y = int(self.height / shape.height)
-        return x * y
+        return int(self.get_area() / shape.get_area())
+
 # Clase Cuadrado hereda de Rectangulo
-
-
 class Square(Rectangle):
     def __init__(self, side_len):
         super().__init__(side_len, side_len)
