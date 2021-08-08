@@ -43,8 +43,8 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
             if v > i[k]:
                 bool_success = False
                 break
-            if bool_success:
-                n_success +=1
+        if bool_success:
+            n_success +=1
     return n_success / num_experiments
 
 
