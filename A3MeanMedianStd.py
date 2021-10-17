@@ -18,14 +18,4 @@ def get_lists(lst, side_size):
     lst_columns = format_list(lst_columns, size)
     
 
-size = int(input("Tamaño de la lista"))
-size_side = int(input("Tamaño del lado")) 
-
-lst = [i for i in range(size)]
-
-get_lists(lst, size_side)
-print(lst_rows)
-print(lst_columns)
-
-
 
