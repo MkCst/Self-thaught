@@ -36,25 +36,25 @@ def draw_line_plot():
     return fig
 
 def draw_bar_plot():
-   # Draw bar plot
-   df['month'] = df.index.month
-   df['year'] = df.index.year
-   df_bar = df.groupby(['year', 'month'])['value'].mean()
-   df_bar = df_bar.unstack()
+    # Draw bar plot
+    df['month'] = df.index.month
+    df['year'] = df.index.year
+    df_bar = df.groupby(['year', 'month'])['value'].mean()
+    df_bar = df_bar.unstack()
    
-   # Dibuja el grafico de barras
-   fig = df_bar.plot.bar(legend=True, figsize=(13,6),
+    # Dibuja el grafico de barras
+    fig = df_bar.plot.bar(legend=True, figsize=(13,6),
                          ylabel='Average Page Views', xlabel='Years').figure
    
-   plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 
+    plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 
                'August', 'September', 'October', 'November', 'December'])
    
-   plt.xticks(fontsize=8)
-   plt.yticks(fontsize=8)
+    plt.xticks(fontsize=8)
+    plt.yticks(fontsize=8)
 
-   # Save image and return fig (don't change this part)
-   fig.savefig('bar_plot.png')
-   return fig
+    # Save image and return fig (don't change this part)
+    fig.savefig('bar_plot.png')
+    return fig
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
